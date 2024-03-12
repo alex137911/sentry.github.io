@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Sentry</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Sentry Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-purple-50 font-roboto antialiased">
+<div class="container mx-auto my-8 p-4 grid grid-cols-4 gap-8">
+  <!-- Sidebar -->
+  <div class="col-span-1 bg-white rounded-2xl p-8 shadow-lg">
+    <!-- Calendar Widget -->
+    <div class="flex justify-between items-center mb-8">
+      <div id="calendar"></div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+      </div>
+    <div class="bg-purple-700 text-white text-center p-4 rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out">
+      Summary
+    </div>
+
+    <!-- Greeting and user stats -->
+    <div class="mt-10">
+      <h2 class="text-3xl font-bold text-gray-800 mb-2">Hello Dr. Smith</h2>
+      <p class="text-sm text-gray-600 mb-6">You have 5 files from X2672 recorded on 09/28/25 to review.</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-span-3">
+    <!-- Review Records Card -->
+    <div class="bg-white rounded-2xl p-8 shadow-lg">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-gray-800">Review Records</h3>
+        <!-- Placeholder for Menu Icon -->
+        <i class="fas fa-ellipsis-h text-gray-400"></i>
+      </div>
+      <!-- Chart Placeholder -->
+      <div class="p-6 bg-purple-100 rounded-xl mb-6">
+        <!-- Replace with actual chart implementation -->
+        <div class="text-center text-gray-400">Chart Placeholder</div>
+      </div>
+      <!-- Information Panel -->
+      <div class="p-4 bg-purple-200 text-purple-800 rounded-xl">
+        Overnight polysomnographic recording conducted on 09/28/25, from 12:03 AM to 8:22 AM for patient X2672. Recording captured via four channels: TP9, AF7, AF8, TP10.
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Load FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+</body>
 </html>
