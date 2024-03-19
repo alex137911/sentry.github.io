@@ -21,14 +21,18 @@
                 initialView: 'dayGridMonth',
                 events: [
                     {
-                        title: 'Event 1',
+                        title: 'Jane Doe',
                         start: '2024-03-01'
                     },
                     {
-                        title: 'Event 2',
+                        title: 'Emily Doe',
+                        start: '2024-03-12'
+                    },
+                    {
+                        title: 'John Doe',
                         start: '2024-03-02'
                     }
-                    // more events here
+                    // Patient's appointments will be added here
                 ]
             });
             calendar.render();
@@ -39,13 +43,15 @@
         let scrollPosition = 0;
 
         function scrollLinks(direction) {
-            const itemHeight = 40; // Adjust this based on your link height
+            const itemHeight = 40; // Adjust based on link height
             const maxScroll = navLinks.scrollHeight - navLinks.clientHeight;
             scrollPosition += direction * itemHeight;
             scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
             navLinks.scrollTo({ top: scrollPosition, behavior: 'smooth' });
         }
     </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script.js"></script>
 </head>
 
 <body class="bg-gray-100 font-roboto antialiased">
@@ -54,10 +60,12 @@
         <div class="bg-white text-purple-700 w-36 p-8 rounded-tr-3xl rounded-br-3xl mt-10 mb-10 flex flex-col items-center">
             <!-- Circular Image -->
             <div class="w-20 h-20 rounded-full bg-purple-300">
-              <!-- Replace the following with your image -->
-              <img src="your-image-url.jpg" alt="Profile Image" class="w-full h-full object-cover rounded-full">
+              <!-- TO DO: Profile Image Updates on Patient Select -->
+              <img src="profile.png" alt="Profile Image" class="w-full h-full object-cover rounded-full">
+              <!-- <img src="profile.png" alt="Profile Image" style="background-color: #4F4698;" 
+                   class="w-full h-full object-cover rounded-full"> -->
             </div>
-            <!-- Text "X2672" -->
+            <!-- TO DO: Patient Identifier "X2672" -->
             <p class="text-5xl text-gray-500 transform -rotate-90 origin-bottom-right pb-12">X2672</p>
             <!-- Navigation Buttons -->
             <div class="flex justify-between mt-4 pt-32">
@@ -69,8 +77,14 @@
             <ul class="space-y-2">
               <li><a href="#" class="block hover:text-purple-300">Dashboard</a></li>
               <li><a href="#" class="block hover:text-purple-300">Patients</a></li>
-              <li><a href="#" class="block hover:text-purple-300">Records</a></li>
-              <!-- Add more navigation links as needed -->
+              <li>
+                <button id="run-script-btn" class="block hover:text-purple-300 focus:outline-none bg-white text-purple-700">
+                  Process
+                </button>
+                <script> scrc="Script.js"</script>
+              </li>
+              <!-- <li><a href="#" class="block hover:text-purple-300">Process</a></li> -->
+              <!-- Navigation links as needed -->
             </ul>
             <!-- Navigation Buttons -->
             <div class="bottom justify-between mt-4">
@@ -94,6 +108,9 @@
                             <h2 class="text-3xl font-bold text-gray-800 mb-2">Hello Dr. Smith</h2>
                             <p class="text-sm text-gray-600 mb-6">You have 5 files from X2672 recorded on 09/28/25 to
                                 review.</p>
+                            <div class="bg-purple-700 text-white text-center p-4 rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out">
+                                Summary
+                            </div>
                         </div>
                     </div>
 
@@ -106,12 +123,15 @@
                                 <!-- Placeholder for Menu Icon -->
                                 <i class="fas fa-ellipsis-h text-gray-400"></i>
                             </div>
-                            <!-- Chart Placeholder -->
+                            <!-- TESS TO DO: Chart Placeholder -->
                             <div class="p-6 bg-purple-100 rounded-xl mb-6">
                                 <!-- Replace with actual chart implementation -->
-                                <div class="text-center text-gray-400">Chart Placeholder</div>
+                                <!-- <div class="text-center text-gray-400">Chart Placeholder</div> -->
+                                <input type="file" id="inputFiles" accept=".csv" multiple>
+                                <div id="eegPlot"></div>
+                                <div id="imuPlot"></div>
                             </div>
-                            <!-- Information Panel -->
+                            <!-- TO DO: Information Panel -->
                             <div class="p-4 bg-purple-200 text-purple-800 rounded-xl">
                                 Overnight polysomnographic recording conducted on 09/28/25, from 12:03 AM to 8:22 AM for
                                 patient X2672. Recording captured via four channels: TP9, AF7, AF8, TP10.
