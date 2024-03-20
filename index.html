@@ -2,18 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Sentry Dashboard</title>
-    <!-- Include Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Include FullCalendar JS -->
-<!-- FullCalendar main bundle CSS -->
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css' rel='stylesheet' />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Sentry Dashboard</title>
+  <!-- Include Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- FullCalendar main bundle JS -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js'></script>
+  <!-- Include Custom Stylesheet CSS -->
+  <link rel="stylesheet" href="src/stylesheet.css">  
 
+  <!-- FullCalendar main bundle CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css' rel='stylesheet' />
+
+  <!-- FullCalendar main bundle JS -->
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -37,7 +39,7 @@
             });
             calendar.render();
         });
-    </script>
+     </script>
     <script>
         const navLinks = document.getElementById('navLinks');
         let scrollPosition = 0;
@@ -103,7 +105,7 @@
                     <!-- Sidebar -->
                     <div class="col-span-3 bg-white rounded-2xl p-8 shadow-lg">
                         <div id='calendar'></div>
-                        <!-- Greeting and user stats -->
+                        <!-- Greeting and User Stats -->
                         <div class="mt-10">
                             <h2 class="text-3xl font-bold text-gray-800 mb-2">Hello Dr. Smith</h2>
                             <p class="text-sm text-gray-600 mb-6">You have 5 files from X2672 recorded on 09/28/25 to
