@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
         runScriptBtn.addEventListener('click', function() {
             const filePath = 
             "C:\\Users\\acale\\OneDrive\\Documents\\Waterloo BME\\4B\\BME 462\\CapstoneProjectBase-physician_ui\\data\\mar13-2024\\mar13\\";
+
+            // const filePath =
+            // "C:\\Users\\acale\\OneDrive\\Documents\\Waterloo BME\\4B\\BME 462\\CapstoneProjectBase-physician_ui\\data\\RBDPatient\\";
+            
             fetch('http://127.0.0.1:5000/run-script', { 
                 method: 'POST',
                 headers: {
@@ -21,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Script output:', data.output);
                 // Notify user
-                alert("Script has been run successfully. Check the directory for output.");
+                alert("Processing has been completed successfully. Check the directory for output.");
             })
             .catch(error => {
                 console.error('Error:', error);
