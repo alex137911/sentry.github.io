@@ -101,7 +101,7 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-            <h1 class="text-3xl font-bold text-gray-800 pt-5 ml-28">Sleep Sentry</h1>
+            <h1 class="text-3xl font-bold text-gray-800 pt-5 ml-18">Sleep Sentry</h1>
                 <div class="container mx-auto my-8 p-4 grid grid-cols-10 gap-3">
                     <!-- Sidebar -->
                     <div class="col-span-3 bg-white rounded-2xl p-8 shadow-lg">
@@ -131,7 +131,20 @@
                             <div class="p-6 bg-purple-100 rounded-xl mb-6">
                                 <!-- Replace with actual chart implementation -->
                                 <!-- <div class="text-center text-gray-400">Chart Placeholder</div> -->
-                                <input type="file" id="inputFiles" accept=".csv" multiple>
+                                <!-- Hidden file input -->
+                                <input type="file" id="inputFiles" accept=".csv" multiple style="display: none;" />
+
+                                <!-- Styled button -->
+                                <button id="fileInputButton" class="bg-purple-600 text-white text-center text-sm rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out p-2 w-half">
+                                    Choose Files
+                                </button>
+
+                                <script>
+                                    document.getElementById('fileInputButton').addEventListener('click', function() {
+                                        document.getElementById('inputFiles').click();
+                                    });
+                                </script>
+                                <!-- <input type="file" id="inputFiles" accept=".csv" multiple> -->
                                 <div id="eegPlot"></div>
                                 <div id="imuPlot"></div>
                             </div>
