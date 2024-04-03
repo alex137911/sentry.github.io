@@ -1,51 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sleep Sentry Dashboard</title>
-  <!-- Include Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Sentry Dashboard</title>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Include Custom Stylesheet CSS -->
-  <link rel="stylesheet" href="src/stylesheet.css">  
+    <!-- Include Custom Stylesheet CSS -->
+    <link rel="stylesheet" href="src/stylesheet.css">
 
-  <!-- FullCalendar main bundle CSS -->
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css' rel='stylesheet' />
+    <!-- FullCalendar main bundle CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css' rel='stylesheet' />
 
-  <!-- FullCalendar main bundle JS -->
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js'></script>
+    <!-- FullCalendar main bundle JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: [
-                    {
-                        title: 'Jane Doe',
-                        start: '2024-03-01'
-                    },
-                    {
-                        title: 'Emily Doe',
-                        start: '2024-03-12'
-                    },
-                    {
-                        title: 'John Doe',
-                        start: '2024-03-02'
-                    }
-                    // Patient's appointments will be added here
+                    // ... your events here
                 ]
             });
             calendar.render();
         });
-     </script>
+    </script>
     <script>
         const navLinks = document.getElementById('navLinks');
         let scrollPosition = 0;
 
         function scrollLinks(direction) {
-            const itemHeight = 40; // Adjust based on link height
+            const itemHeight = 40;
             const maxScroll = navLinks.scrollHeight - navLinks.clientHeight;
             scrollPosition += direction * itemHeight;
             scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
@@ -53,21 +40,20 @@
         }
     </script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
     <!-- Include Script.js -->
     <script src="script.js"></script>
 </head>
 
 <body class="bg-gray-100 font-roboto antialiased">
     <div class="flex h-screen">
+        
         <!-- Sidebar -->
         <div class="bg-white text-purple-700 w-36 p-8 rounded-tr-3xl rounded-br-3xl mt-10 mb-10 flex flex-col items-center">
-            <!-- Circular Image -->
+            
+            <!-- Profile Image -->
             <div class="w-20 h-20 rounded-full bg-purple-300">
-              <!-- TO DO: Profile Image Updates on Patient Select -->
-              <img src="profile.png" alt="Profile Image" class="w-full h-full object-cover rounded-full">
-              <!-- <img src="profile.png" alt="Profile Image" style="background-color: #4F4698;" 
-                   class="w-full h-full object-cover rounded-full"> -->
+                <!-- TO DO: Profile Image Updates on Patient Select -->
+                <img src="profile.png" alt="Profile Image" class="w-full h-full object-cover rounded-full">
             </div>
             <!-- TO DO: Patient Identifier "X2672" -->
             <p class="text-5xl text-gray-500 transform -rotate-90 origin-bottom-right pb-12 -mt-12">X2672</p>
@@ -76,88 +62,84 @@
                 <button onclick="scrollLinks(-1)" class="text-purple-500 hover:text-purple-700 focus:outline-none">
                   ▲
                 </button>
-              </div>
+            </div>
+            
             <!-- Navigation Links -->
             <ul class="space-y-2">
-              <li><a href="#" class="block hover:text-purple-300">Dashboard</a></li>
-              <li><a href="#" class="block hover:text-purple-300">Patients</a></li>
-              <!-- <li>
-                <button id="run-script-btn" class="block hover:text-purple-300 focus:outline-none bg-white text-purple-700">
-                  Process
-                </button>
-                <script> scrc="Script.js"</script>
-              </li> -->
-              <!-- <li><a href="#" class="block hover:text-purple-300">Process</a></li> -->
-              <!-- Navigation links as needed -->
+                <li><a href="#" class="block hover:text-purple-300">Dashboard</a></li>
+                <li><a href="#" class="block hover:text-purple-300">Patients</a></li>
             </ul>
+            
             <!-- Navigation Buttons -->
             <div class="bottom justify-between mt-4">
-              <button onclick="scrollLinks(1)" class="text-purple-500 hover:text-purple-700 focus:outline-none">
-                ▼
-              </button>
+                <button onclick="scrollLinks(1)" class="text-purple-500 hover:text-purple-700 focus:outline-none">
+                    ▼
+                </button>
             </div>
-          </div>
-          
+        </div>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-            <h1 class="text-3xl font-bold text-gray-800 pt-5 ml-18">Sleep Sentry</h1>
-                <div class="container mx-auto my-8 p-4 grid grid-cols-10 gap-3">
-                    <!-- Sidebar -->
-                    <div class="col-span-3 bg-white rounded-2xl p-8 shadow-lg">
-                        <div id='calendar'></div>
-                        <!-- Greeting and User Stats -->
-                        <div class="mt-10">
-                            <h2 class="text-3xl font-bold text-gray-800 mb-2">Hello Dr. Smith</h2>
-                            <p class="text-sm text-gray-600 mb-6">You have 5 files from X2672 recorded on 09/28/25 to
-                                review.</p>
-                              <button id="run-script-btn" class="bg-purple-600 text-white text-center p-4 rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out w-full">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Sleep Sentry</h1>
+            <div class="grid grid-cols-10 gap-4">
+                
+                <!-- Calendar Panel -->
+                <div class="col-span-3 bg-white rounded-2xl p-8 shadow-lg">
+                    <div id='calendar'></div>
+                    
+                    <!-- Greeting and User Stats -->
+                    <div class="mt-10">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Hello Dr. Smith</h2>
+                        <p class="text-sm text-gray-600 mb-6">You have [X] files from [PATIENT] recorded on MM/DD/YYYY to
+                            review.</p>
+                            <button id="run-script-btn" class="bg-purple-600 text-white text-center p-4 rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out w-full">
                                 Process
-                              </button>
-                              <!-- <script> scrc="Script.js"</script> -->
-                         </div>
+                            </button>
                     </div>
+                </div>
 
-                    <!-- Plotting Panel -->
-                    <div class="col-span-7">
-                        <!-- Review Records Card -->
-                        <div class="bg-white rounded-2xl p-8 shadow-lg">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-xl font-bold text-gray-800">Review Records</h3>
-                                <!-- Placeholder for Menu Icon -->
-                                <i class="fas fa-ellipsis-h text-gray-400"></i>
-                            </div>
-                            <!-- TESS TO DO: Chart Placeholder -->
-                            <div class="p-6 bg-purple-100 rounded-xl mb-6">
-                                <!-- Replace with actual chart implementation -->
-                                <!-- <div class="text-center text-gray-400">Chart Placeholder</div> -->
-                                <!-- Hidden file input -->
-                                <input type="file" id="inputFiles" accept=".csv" multiple style="display: none;" />
+                <!-- Plotting Panel -->
+                <div class="col-span-7">
+                    
+                    <!-- Review Records Card -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-800">Review Records</h3>
+                            <!-- Placeholder for Menu Icon -->
+                            <i class="fas fa-ellipsis-h text-gray-400"></i>
+                        </div>
+                        
+                        <!-- TESS TO DO: Chart Placeholder -->
+                        <div class="p-6 bg-purple-100 rounded-xl mb-6">
+                            <!-- Replace with actual chart implementation -->
+                            <!-- <div class="text-center text-gray-400">Chart Placeholder</div> -->
+                            <!-- Hidden file input -->
+                            <input type="file" id="inputFiles" accept=".csv" multiple style="display: none;" />
 
-                                <!-- Styled button -->
-                                <button id="fileInputButton" class="bg-purple-600 text-white text-center text-sm rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out p-2 w-half">
-                                    Choose Files
-                                </button>
+                            <!-- Styled button -->
+                            <button id="fileInputButton" class="bg-purple-600 text-white text-center text-sm rounded-lg cursor-pointer hover:bg-purple-800 transition duration-300 ease-in-out p-2 w-half">
+                                Choose Files
+                            </button>
 
-                                <script>
-                                    document.getElementById('fileInputButton').addEventListener('click', function() {
-                                        document.getElementById('inputFiles').click();
-                                    });
-                                </script>
-                                <!-- <input type="file" id="inputFiles" accept=".csv" multiple> -->
-                                <div id="eegPlot"></div>
-                                <div id="imuPlot"></div>
-                            </div>
-                            <!-- TO DO: Information Panel -->
-                            <div class="p-4 bg-purple-200 text-purple-800 rounded-xl">
-                                Overnight polysomnographic recording conducted on 09/28/25, from 12:03 AM to 8:22 AM for
-                                patient X2672. Recording captured via four channels: TP9, AF7, AF8, TP10.
-                            </div>
+                            <script>
+                                document.getElementById('fileInputButton').addEventListener('click', function() {
+                                    document.getElementById('inputFiles').click();
+                                });
+                            </script>
+                            <!-- <input type="file" id="inputFiles" accept=".csv" multiple> -->
+                            <div id="eegPlot"></div>
+                            <div id="imuPlot"></div>
+                        </div>
+                        
+                        <!-- TO DO: Information Panel -->
+                        <div class="p-4 bg-purple-200 text-purple-800 rounded-xl">
+                            Overnight polysomnographic recording conducted on MM/DD/YYYY, from 00:00 PM to 00:00 AM for
+                            [PATIENT]. Recording captured via four channels: TP9, AF7, AF8, TP10.
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </body>
-
 </html>
