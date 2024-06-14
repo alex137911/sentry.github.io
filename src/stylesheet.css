@@ -3,3 +3,47 @@
 .w-full.h-full.object-cover.rounded-full {
   background-color: #4F4698;
 }
+
+/* Navigation Buttons Styling */
+.circle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;  /* Diameter of the circle */
+  height: 40px; /* Diameter of the circle */
+  border-radius: 50%; /* Makes the button round */
+  border: 2px solid #805ad5; /* Purple border, adjust as needed */
+  background-color: white; /* Background color of the button */
+  position: relative; /* Needed to position the pseudo-elements */
+}
+
+/* Common styles for arrows */
+.circle-button::before, .circle-button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.up-arrow::before {
+  border-width: 0 5px 8px 5px; /* Adjust the size of the arrow */
+  border-color: transparent transparent #805ad5 transparent; /* Arrow color */
+  top: 30%; /* Adjust position inside circle */
+}
+
+.down-arrow::before {
+  border-width: 8px 5px 0 5px; /* Adjust the size of the arrow */
+  border-color: #805ad5 transparent transparent transparent; /* Arrow color */
+  top: 50%; /* Adjust position inside circle */
+}
+
+/* Navigation Buttons Styling */
+.hidden {
+  display: none;
+}
+
+.menu-item {
+  cursor: pointer;
+}

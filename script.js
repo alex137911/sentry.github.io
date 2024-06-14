@@ -33,6 +33,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Toggle between showing and hiding the sidebar
+    var options = document.querySelectorAll('.menu-item');
+    var currentIndex = 0;
+
+    function showOption(index) {
+        options.forEach(option => option.classList.add('hidden'));
+        options[index].classList.remove('hidden');
+    }
+
+    function previousOption() {
+        currentIndex = (currentIndex - 1 + options.length) % options.length;
+        showOption(currentIndex);
+    }
+
+    function nextOption() {
+        currentIndex = (currentIndex + 1) % options.length;
+        showOption(currentIndex);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showOption(currentIndex);  // Ensure the DOM is fully loaded before executing
+    });
+
     // Function to plot EEG from CSV
     function plotEEGFromCSV(eegData) {
         var rows = eegData.split('\n');
@@ -166,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var eegDataToPlot = [traceGamma, traceGammaREM, traceBeta, traceBetaREM, traceAlpha, traceAlphaREM, traceTheta, traceThetaREM, traceDelta, traceDeltaREM];
 
         var layout = {
+            title: 'Overnight EEG Data with Highlighted Periods of REM',
             showlegend: false,
             yaxis: { domain: [0.8, 1], title: 'Delta', fixedrange: true },
             yaxis2: { domain: [0.6, 0.79], title: 'Theta', fixedrange: true },
@@ -185,35 +209,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
-    // Function to plot IMU from CSV
     function plotIMUFromCSV(imuData) {
-        var colours = ['#4F4698', '#FFD166', '#CC92C2', '#FFB627'];
         var traces = [];
 
         for (const [index, key] of Object.keys(imuData).entries()) {
             var data = imuData[key];
             var xValues = data.map(row => parseFloat(row[0]));
             var yValues = data.map(row => parseFloat(row[1]));
+            var rbdFlags = data.map(row => parseFloat(row[2]));
 
             var firstXValue = xValues[0];
             xValues = xValues.map(function(value) {
                 return value - firstXValue;
             });
 
+            var yValuesRBD = [];
+
+            for (var i = 0; i < yValues.length; i++) {
+                var yValue = yValues[i];
+                var rbdFlag = rbdFlags[i];
+                var yValueRBD = rbdFlag !== 0 ? yValue * rbdFlag : null;
+                yValuesRBD.push(yValueRBD);
+            }
+
             var trace = {
                 x: xValues,
                 y: yValues,
                 mode: 'lines',
                 name: key,
-                line: {color: colours[index]}
+                line: {color: '#4F4698'}
+            };
+
+            var traceRBD = {
+                x: xValues,
+                y: yValuesRBD,
+                mode: 'lines',
+                name: key + " RBD",
+                line: {color: '#DBA8AC'}
             };
 
             traces.push(trace);
+            traces.push(traceRBD);
         }
 
         var layout = {
+            title: 'Overnight IMU Data with Highlighted Periods of RBD',
             xaxis: {title: 'Time (seconds)'},
-            yaxis: {title: 'Magnitude'},
+            yaxis: {title: 'Acceleration (g)'},
             legend: {
                 x: 0,
                 y: 1,
@@ -225,21 +267,21 @@ document.addEventListener('DOMContentLoaded', function () {
         Plotly.newPlot('imuPlot', traces, layout);
     }
 
-    // Event listener for file input change
     document.getElementById('inputFiles').addEventListener('change', function (event) {
         const allFiles = event.target.files;
         if (!allFiles || allFiles.length === 0) return;
 
-        const eegFile = Array.from(allFiles).find(file => file.name === "eeg.csv");
+        const eegFile = Array.from(allFiles).find(file => file.name.endsWith("eeg_output.csv"));
 
         if (!eegFile) {
-            console.error("EEG file 'eeg.csv' not found.");
+            console.error("EEG output file ending with 'eeg_output.csv' not found.");
             return;
         }
 
         const imuFiles = Array.from(allFiles).filter(file => {
-            return file.name === "leftWrist.csv" || file.name === "rightWrist.csv" || file.name === "leftAnkle.csv" || file.name === "rightAnkle.csv";
-        });
+            // return file.name.endsWith("lwrist_output.csv") || file.name.endsWith("rwrist_output.csv") || file.name.endsWith("lankle_output.csv") || file.name.endsWith("rankle_output.csv");
+            return file.name.endsWith("left wrist.csv") || file.name.endsWith("right wrist.csv") || file.name.endsWith("left ankle.csv") || file.name.endsWith("right ankle.csv");
+        })
 
         const eegReader = new FileReader();
 
@@ -251,8 +293,8 @@ document.addEventListener('DOMContentLoaded', function () {
         eegReader.readAsText(eegFile);
 
         const imuData = {};
-        let imuFilesCount = 0;
 
+        let imuFileSCount = 0;
         imuFiles.forEach(file => {
             const imuReader = new FileReader();
             imuReader.onload = function(e) {
@@ -261,11 +303,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const dataArray = csvLines.map(line => line.split(','));
                 const fileName = file.name.split('.')[0];
                 imuData[fileName] = dataArray;
-                imuFilesCount++;
+                imuFileSCount++;
 
-                if (imuFilesCount === imuFiles.length) {
+                if (imuFileSCount === imuFiles.length) {
                     plotIMUFromCSV(imuData);
-                    console.log(imuData);
+                    // console.log(imuData);
                 }
             };
             imuReader.readAsText(file);
